@@ -7,7 +7,7 @@ const email = document.querySelector("#email")
 const password = document.querySelector("#password")
 
 // URL del json server donde se encuentran los usuarios
-const URL_USERS = "http://localhost:3000/users"
+const URL_USERS = "https://crud-db-jet.vercel.app/users"
 
 // Evento del submit en el formulario
 registerForm.addEventListener("submit", async (event) => {

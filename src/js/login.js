@@ -5,7 +5,7 @@ const email = document.querySelector("#email")
 const password = document.querySelector("#password")
 
 // URL del json server donde se encuentran los usuarios
-const URL_USERS = "http://localhost:3000/users"
+const URL_USERS = "https://crud-db-jet.vercel.app/users"
 
 // Función que valida la existencia del usuario, si existe retorna su información
 async function validateUser(email) {

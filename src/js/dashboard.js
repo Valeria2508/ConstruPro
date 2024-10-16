@@ -15,7 +15,7 @@ const type = document.querySelector("#type")
 let id
 
 // Ruta del json server donde están los productos
-const URL_PRODUCTS = "http://localhost:3000/products"
+const URL_PRODUCTS = "https://crud-db-jet.vercel.app/products"
 
 // Función guardián que valida si el usuario está logueado
 function isLogged() {

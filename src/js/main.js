@@ -1,7 +1,7 @@
 // Selectores html para manipulación del DOM
 const productsContainer = document.querySelector("#products-container")
 const btnsNavbar = document.querySelector("#btns-navbar")
-const URL_PRODUCTS = "http://localhost:3000/products"
+const URL_PRODUCTS = "https://crud-db-jet.vercel.app/products"
 
 // Función para pintar todos los productos
 
