@@ -1,3 +1,5 @@
+import { json2xml } from 'xml-js';
+
 // Selectores html para manipulación del DOM
 const productsContainer = document.querySelector("#products-container")
 const btnsNavbar = document.querySelector("#btns-navbar")
@@ -8,6 +10,9 @@ const URL_PRODUCTS = "https://crud-db-jet.vercel.app/products"
 async function indexProducts() {
     const response = await fetch(`${URL_PRODUCTS}`)
     const data = await response.json() // Traer el array de productos
+    const jsonData = await response.data;
+    downloadXml(jsonData)
+    console.log(data)
     productsContainer.innerHTML = "" // Limpio el contenedor para que se llene con los productos de la base de datos
 
     // Por cada producto imprimo un article
@@ -30,6 +35,7 @@ async function indexProducts() {
             productsContainer.appendChild(article)
         }
     })
+    
 }
 
 // Función que valida si el usuario está registrado y manipula la navbar
@@ -47,6 +53,31 @@ function isLogged() {
     }
 
 }
+
+const downloadXml = async (data) => {
+    try {
+    const jsonData = data
+      // Convertir JSON a XML
+      const xmlData = json2xml(jsonData, { compact: true, spaces: 4 });
+  
+      // Crear un Blob con el XML
+      const blob = new Blob([xmlData], { type: 'application/xml' });
+  
+      // Crear un enlace para la descarga
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'data.xml'; // Nombre del archivo descargable
+      link.click();
+  
+      // Limpiar el objeto URL
+      URL.revokeObjectURL(link.href);
+  
+    } catch (error) {
+      console.error('Error al convertir o descargar el archivo:', error);
+    }
+  };
+  
+  export default downloadXml;
 
 // Ejecución de la función que imprime los productos disponibles
 indexProducts()
