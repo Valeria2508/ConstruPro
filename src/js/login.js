@@ -30,7 +30,7 @@ loginForm.addEventListener("submit", async (event) => {
     } else { // si existe y su contraseña es correcta
         alert("Welcome " + user.username)
         localStorage.setItem("user", JSON.stringify(user)) // Ingresamos el usuario al localStorage para que persista en las diferentes vistas
-        window.location.href = "./dashboard.html" // Redirige hacia el dashboard para que el usuario pueda manipular los productos
+        window.location.href = "/src/pages/dashboard.html" // Redirige hacia el dashboard para que el usuario pueda manipular los productos
     }
     loginForm.reset() // Limpiamos el formulario
 })
@@ -39,7 +39,7 @@ loginForm.addEventListener("submit", async (event) => {
 export function isLogged() {
     const user = localStorage.getItem("user")
     if (user) {
-        window.location.href = "./dashboard.html"
+        window.location.href = "/src/pages/dashboard.html"
     }
 }
 

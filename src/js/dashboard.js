@@ -21,7 +21,7 @@ const URL_PRODUCTS = "https://crud-db-jet.vercel.app/products"
 function isLogged() {
     const user = localStorage.getItem("user")
     if (!user) {
-        window.location.href = "./login.html"
+        window.location.href = "/src/pages/login.html"
     } else {
         return user
     }
@@ -30,7 +30,7 @@ function isLogged() {
 // Función para cerrar sesión
 btnLogout.addEventListener("click", () => {
     localStorage.removeItem("user")
-    window.location.href="../../index.html"
+    window.location.href="/index.html"
 })
 
 // Evento del submit en el formulario de productos 

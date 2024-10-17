@@ -22,7 +22,7 @@ registerForm.addEventListener("submit", async (event) => {
     } else {
         await createUser(name, username, email, password)
         alert("User registered successfully")
-        window.location.href="./login.html"
+        window.location.href="/src/pages/login.html"
     }
 
 })
