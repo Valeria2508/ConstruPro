@@ -1,18 +1,31 @@
 import { json2xml } from 'xml-js';
+window.Buffer = window.Buffer
+
 
 // Selectores html para manipulación del DOM
 const productsContainer = document.querySelector("#products-container")
 const btnsNavbar = document.querySelector("#btns-navbar")
+const btnXml = document.querySelector("#xml")
 const URL_PRODUCTS = "https://crud-db-jet.vercel.app/products"
+
+// Función para descargar el XML
+
+async function downloadXLMFile() {
+    const response = await fetch(`${URL_PRODUCTS}`)
+    const data = await response.json() // Traer el array de productos
+    downloadXml(data)
+}
+
+btnXml.addEventListener("click", () => {
+    downloadXLMFile()
+})
 
 // Función para pintar todos los productos
 
 async function indexProducts() {
     const response = await fetch(`${URL_PRODUCTS}`)
-    const data = await response.json() // Traer el array de productos
-    const jsonData = await response.data;
-    downloadXml(jsonData)
-    console.log(data)
+    const data = await response.json() // Traer el array de productos   
+    
     productsContainer.innerHTML = "" // Limpio el contenedor para que se llene con los productos de la base de datos
 
     // Por cada producto imprimo un article
@@ -54,29 +67,48 @@ function isLogged() {
 
 }
 
-const downloadXml = async (data) => {
+// Función para convertir JSON a XML manualmente
+function jsonToXml(json) {
+    console.log(json)
+    let xml = '<products>'; // Raíz XML
+    json.forEach(product => {
+      xml += `
+        <product>
+          <name>${product.name}</name>
+          <type>${product.type}</type>
+          <description>${product.description}</description>
+          <price>${product.price}</price>
+          <amount>${product.amount}</amount>
+          <img>${product.img}</img>
+        </product>;  
+        `
+    });
+    xml += '</products>';
+    return xml;
+  }
+
+  const downloadXml = (data) => {
     try {
-    const jsonData = data
-      // Convertir JSON a XML
-      const xmlData = json2xml(jsonData, { compact: true, spaces: 4 });
-  
+      // Convertir JSON a XML usando la función manual
+      const xmlData = jsonToXml(data);
+
       // Crear un Blob con el XML
       const blob = new Blob([xmlData], { type: 'application/xml' });
-  
+
       // Crear un enlace para la descarga
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = 'data.xml'; // Nombre del archivo descargable
       link.click();
-  
+
       // Limpiar el objeto URL
       URL.revokeObjectURL(link.href);
-  
+
     } catch (error) {
       console.error('Error al convertir o descargar el archivo:', error);
     }
   };
-  
+
   export default downloadXml;
 
 // Ejecución de la función que imprime los productos disponibles
